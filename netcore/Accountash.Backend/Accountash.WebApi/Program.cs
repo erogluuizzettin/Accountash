@@ -1,5 +1,9 @@
+using Accountash.Application.Services.AppServices;
+using Accountash.Domain.AppEntities.Identity;
 using Accountash.Persistance.Context;
+using Accountash.Persistance.Services.AppServices;
 using Accountash.Presentation;
+using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
@@ -12,6 +16,13 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("SqlServer"));
 });
+builder.Services.AddIdentity<AppUser, AppRole>().AddEntityFrameworkStores<AppDbContext>();
+
+builder.Services.AddScoped<ICompanyService, CompanyService>();
+
+builder.Services.AddMediatR(typeof(Accountash.Application.AssemblyReference).Assembly);
+
+builder.Services.AddAutoMapper(typeof(Accountash.Persistance.AssemblyReference).Assembly);
 
 builder.Services.AddControllers()
     .AddApplicationPart(typeof(AssemblyReference).Assembly);

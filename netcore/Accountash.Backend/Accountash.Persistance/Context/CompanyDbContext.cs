@@ -13,7 +13,7 @@ namespace Accountash.Persistance.Context
     {
         private string _connectionString;
 
-        public CompanyDbContext(Company? company)
+        public CompanyDbContext(Company company = null)
         {
             if (company == null)
             {
