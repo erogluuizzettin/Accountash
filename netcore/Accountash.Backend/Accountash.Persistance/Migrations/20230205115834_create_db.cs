@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Accountash.Persistance.Migrations
 {
     /// <inheritdoc />
-    public partial class createdatabase : Migration
+    public partial class createdb : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -61,6 +61,10 @@ namespace Accountash.Persistance.Migrations
                     TaxDepartment = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Phone = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     EMail = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ServerName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    DatabaseName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    DbUserId = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    DbPassword = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CreateDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UpdateDate = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },

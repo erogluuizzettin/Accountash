@@ -30,9 +30,6 @@ namespace Accountash.Persistance.Migrations.CompanyDb
                     b.Property<string>("Code")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("CompanyId")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<DateTime>("CreateDate")
                         .HasColumnType("datetime2");
 

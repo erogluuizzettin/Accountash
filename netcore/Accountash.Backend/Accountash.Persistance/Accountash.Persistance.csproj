@@ -21,8 +21,4 @@
     <ProjectReference Include="..\Accountash.Domain\Accountash.Domain.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Services\CompanyServices\" />
-  </ItemGroup>
-
 </Project>

@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Accountash.Persistance.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20230204120635_update_company_information")]
-    partial class updatecompanyinformation
+    [Migration("20230205115834_create_db")]
+    partial class createdb
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

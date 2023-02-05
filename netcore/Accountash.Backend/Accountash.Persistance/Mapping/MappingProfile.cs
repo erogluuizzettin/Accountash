@@ -1,5 +1,7 @@
 ﻿using Accountash.Application.Features.AppFeatures.CompanyFeatures.Commands.CreateCompany;
+using Accountash.Application.Features.CompanyFeatures.UniformChartOfAccountFeatures.Commands.CreateUniformChartOfAccount;
 using Accountash.Domain.AppEntities;
+using Accountash.Domain.CompanyEntities;
 using AutoMapper;
 using System;
 using System.Collections.Generic;
@@ -14,6 +16,7 @@ namespace Accountash.Persistance.Mapping
         public MappingProfile()
         {
             CreateMap<CreateCompanyRequest, Company>().ReverseMap();
+            CreateMap<CreateUniformChartOfAccountRequest, UniformChartOfAccount>().ReverseMap();
         }
     }
 }

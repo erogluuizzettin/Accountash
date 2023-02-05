@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Accountash.Persistance.Migrations.CompanyDb
 {
     [DbContext(typeof(CompanyDbContext))]
-    [Migration("20230131204328_create_company_database")]
-    partial class createcompanydatabase
+    [Migration("20230205165212_create_companydb")]
+    partial class createcompanydb
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -31,9 +31,6 @@ namespace Accountash.Persistance.Migrations.CompanyDb
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Code")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("CompanyId")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("CreateDate")

@@ -1,8 +1,13 @@
 using Accountash.Application.Services.AppServices;
+using Accountash.Application.Services.CompanyServices;
+using Accountash.Domain;
 using Accountash.Domain.AppEntities.Identity;
+using Accountash.Domain.Repositories.UniformChartOfAccountRepository;
+using Accountash.Persistance;
 using Accountash.Persistance.Context;
+using Accountash.Persistance.Repositories.UniformChartOfAccountRepository;
 using Accountash.Persistance.Services.AppServices;
-using Accountash.Presentation;
+using Accountash.Persistance.Services.CompanyServices;
 using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
@@ -19,13 +24,18 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 builder.Services.AddIdentity<AppUser, AppRole>().AddEntityFrameworkStores<AppDbContext>();
 
 builder.Services.AddScoped<ICompanyService, CompanyService>();
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+builder.Services.AddScoped<IUniformChartOfAccountService, UniformChartOfAccountService>();
+builder.Services.AddScoped<IUniformChartOfAccountCommandRepository, UniformChartOfAccountCommandRepository>();
+builder.Services.AddScoped<IUniformChartOfAccountQueryRepository, UniformChartOfAccountQueryRepository>();
+builder.Services.AddScoped<IContextService, ContextService>();
 
 builder.Services.AddMediatR(typeof(Accountash.Application.AssemblyReference).Assembly);
 
 builder.Services.AddAutoMapper(typeof(Accountash.Persistance.AssemblyReference).Assembly);
 
-builder.Services.AddControllers()
-    .AddApplicationPart(typeof(AssemblyReference).Assembly);
+builder.Services.AddControllers().AddApplicationPart(typeof(Accountash.Presentation.AssemblyReference).Assembly);
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(setup =>

@@ -1,4 +1,5 @@
-﻿using Accountash.Domain.AppEntities;
+﻿using Accountash.Domain.Abstraction;
+using Accountash.Domain.AppEntities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 using System;
@@ -56,6 +57,25 @@ namespace Accountash.Persistance.Context
             {
                 return new CompanyDbContext(null);
             }
+        }
+
+        public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
+        {
+            var entries = ChangeTracker.Entries<BaseEntity>();
+            foreach (var entry in entries)
+            {
+                if (entry.State == EntityState.Added)
+                {
+                    entry.Property(x => x.CreateDate).CurrentValue = DateTime.Now;
+                }
+
+                if (entry.State == EntityState.Modified)
+                {
+                    entry.Property(x => x.UpdateDate).CurrentValue = DateTime.Now;
+                }
+            }
+
+            return base.SaveChangesAsync(cancellationToken);
         }
     }
 }
