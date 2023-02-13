@@ -1,4 +1,6 @@
+﻿using Accountash.Domain.AppEntities.Identity;
 using Accountash.WebApi.Configurations;
+using Microsoft.AspNetCore.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,5 +22,20 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
+
+using (var scoped = app.Services.CreateScope())
+{
+    var userManager = scoped.ServiceProvider.GetRequiredService<UserManager<AppUser>>();
+    if (!userManager.Users.Any())
+    {
+        userManager.CreateAsync(new AppUser
+        {
+            UserName = "izzettineroglu",
+            Email="erogluuizzettin@gmail.com",
+            Id= Guid.NewGuid().ToString(),
+            FullName = "İzzettin Eroğlu"
+        }, "Er1994*").Wait();
+    }
+}
 
 app.Run();

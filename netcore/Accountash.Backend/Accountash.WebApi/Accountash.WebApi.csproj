@@ -23,6 +23,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Accountash.Infrastructure\Accountash.Infrastructure.csproj" />
     <ProjectReference Include="..\Accountash.Persistance\Accountash.Persistance.csproj" />
     <ProjectReference Include="..\Accountash.Presentation\Accountash.Presentation.csproj" />
   </ItemGroup>
