@@ -20,7 +20,7 @@ namespace Accountash.Presentation.Controller
         }
 
         [HttpGet("[action]")]
-        public async Task<IActionResult> MigrateCompanyDatases()
+        public async Task<IActionResult> MigrateCompanyDatabases()
         {
             MigrateCompanyDatabasesRequest request = new();
             MigrateCompanyDatabasesResponse response = await _mediator.Send(request);
