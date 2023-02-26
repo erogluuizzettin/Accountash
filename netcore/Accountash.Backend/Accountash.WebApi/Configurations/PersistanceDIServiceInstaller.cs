@@ -21,6 +21,7 @@ namespace Accountash.WebApi.Configurations
             #region Services
             services.AddScoped<ICompanyService, CompanyService>();
             services.AddScoped<IUniformChartOfAccountService, UniformChartOfAccountService>();
+            services.AddScoped<IRoleService, RoleService>();
             #endregion
 
             #region Repositories

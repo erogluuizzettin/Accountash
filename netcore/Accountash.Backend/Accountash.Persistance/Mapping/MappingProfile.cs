@@ -1,6 +1,8 @@
 ﻿using Accountash.Application.Features.AppFeatures.CompanyFeatures.Commands.CreateCompany;
+using Accountash.Application.Features.AppFeatures.RoleFeatures.Commands.CreateRole;
 using Accountash.Application.Features.CompanyFeatures.UniformChartOfAccountFeatures.Commands.CreateUniformChartOfAccount;
 using Accountash.Domain.AppEntities;
+using Accountash.Domain.AppEntities.Identity;
 using Accountash.Domain.CompanyEntities;
 using AutoMapper;
 using System;
@@ -15,8 +17,9 @@ namespace Accountash.Persistance.Mapping
     {
         public MappingProfile()
         {
-            CreateMap<CreateCompanyRequest, Company>().ReverseMap();
-            CreateMap<CreateUniformChartOfAccountRequest, UniformChartOfAccount>().ReverseMap();
+            CreateMap<CreateCompanyRequest, Company>();
+            CreateMap<CreateUniformChartOfAccountRequest, UniformChartOfAccount>();
+            CreateMap<CreateRoleRequest, AppRole>();
         }
     }
 }
