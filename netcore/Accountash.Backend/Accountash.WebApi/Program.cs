@@ -1,5 +1,6 @@
 ﻿using Accountash.Domain.AppEntities.Identity;
 using Accountash.WebApi.Configurations;
+using Accountash.WebApi.Middleware;
 using Microsoft.AspNetCore.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -14,6 +15,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseExceptionMiddleware();
 
 app.UseHttpsRedirection();
 
