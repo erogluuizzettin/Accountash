@@ -1,4 +1,6 @@
 ﻿using Accountash.Application;
+using Accountash.Application.Behavior;
+using FluentValidation;
 using MediatR;
 
 namespace Accountash.WebApi.Configurations
@@ -8,6 +10,10 @@ namespace Accountash.WebApi.Configurations
         public void Install(IServiceCollection services, IConfiguration configuration)
         {
             services.AddMediatR(typeof(AssemblyReference).Assembly);
+
+            services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBahevior<,>));
+
+            services.AddValidatorsFromAssembly(typeof(AssemblyReference).Assembly);
         }
     }
 }
