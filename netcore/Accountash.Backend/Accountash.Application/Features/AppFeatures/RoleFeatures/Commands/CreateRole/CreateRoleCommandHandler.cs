@@ -1,21 +1,19 @@
-﻿using Accountash.Application.Services.AppServices;
+﻿using Accountash.Application.Messaging;
+using Accountash.Application.Services.AppServices;
 using Accountash.Domain.AppEntities.Identity;
-using MediatR;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
 
 namespace Accountash.Application.Features.AppFeatures.RoleFeatures.Commands.CreateRole
 {
-    public sealed class CreateRoleHandler : IRequestHandler<CreateRoleRequest, CreateRoleResponse>
+    public sealed class CreateRoleCommandHandler : ICommandHandler<CreateRoleCommand, CreateRoleCommandResponse>
     {
         private readonly IRoleService _roleService;
 
-        public CreateRoleHandler(IRoleService roleService)
+        public CreateRoleCommandHandler(IRoleService roleService)
         {
             _roleService = roleService;
         }
 
-        public async Task<CreateRoleResponse> Handle(CreateRoleRequest request, CancellationToken cancellationToken)
+        public async Task<CreateRoleCommandResponse> Handle(CreateRoleCommand request, CancellationToken cancellationToken)
         {
             AppRole role = await _roleService.GetByCodeAsync(request.Code);
             if (role != null) throw new Exception("This role has already been registered!");

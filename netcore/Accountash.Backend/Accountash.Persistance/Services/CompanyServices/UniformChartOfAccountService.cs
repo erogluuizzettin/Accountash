@@ -29,7 +29,7 @@ namespace Accountash.Persistance.Services.CompanyServices
             _mapper = mapper;
         }
 
-        public async Task CreateUniformChartOfAccountAsync(CreateUniformChartOfAccountRequest request)
+        public async Task CreateUniformChartOfAccountAsync(CreateUniformChartOfAccountCommand request)
         {
             _context = (CompanyDbContext)_contextService.CreateDbContextInstance(request.CompanyId);
             _uniformChartOfAccountCommandRepository.SetDbContextInstance(_context);

@@ -13,9 +13,9 @@ namespace Accountash.Presentation.Controller
         }
 
         [HttpPost("[action]")]
-        public async Task<IActionResult> CreateUniformChartOfAccount(CreateUniformChartOfAccountRequest request)
+        public async Task<IActionResult> CreateUniformChartOfAccount(CreateUniformChartOfAccountCommand request)
         {
-            CreateUniformChartOfAccountResponse response = await _mediator.Send(request);
+            CreateUniformChartOfAccountCommandResponse response = await _mediator.Send(request);
             return Ok(response);
         }
     }

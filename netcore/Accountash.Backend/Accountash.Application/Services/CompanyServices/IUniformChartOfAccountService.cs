@@ -10,6 +10,6 @@ namespace Accountash.Application.Services.CompanyServices
 {
     public interface IUniformChartOfAccountService
     {
-        Task CreateUniformChartOfAccountAsync(CreateUniformChartOfAccountRequest request);
+        Task CreateUniformChartOfAccountAsync(CreateUniformChartOfAccountCommand request);
     }
 }

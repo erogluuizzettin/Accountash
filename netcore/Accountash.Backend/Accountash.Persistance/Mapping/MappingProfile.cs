@@ -17,9 +17,9 @@ namespace Accountash.Persistance.Mapping
     {
         public MappingProfile()
         {
-            CreateMap<CreateCompanyRequest, Company>();
-            CreateMap<CreateUniformChartOfAccountRequest, UniformChartOfAccount>();
-            CreateMap<CreateRoleRequest, AppRole>();
+            CreateMap<CreateCompanyCommand, Company>();
+            CreateMap<CreateUniformChartOfAccountCommand, UniformChartOfAccount>();
+            CreateMap<CreateRoleCommand, AppRole>();
         }
     }
 }

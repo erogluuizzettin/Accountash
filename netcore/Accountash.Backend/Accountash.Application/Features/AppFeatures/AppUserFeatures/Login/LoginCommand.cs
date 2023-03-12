@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using Accountash.Application.Messaging;
+using MediatR;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,9 +8,7 @@ using System.Threading.Tasks;
 
 namespace Accountash.Application.Features.AppFeatures.AppUserFeatures.Login
 {
-    public sealed class LoginRequest : IRequest<LoginResponse>
-    {
-        public string EMailOrUserName { get; set; }
-        public string Password { get; set; }
-    }
+    public sealed record LoginCommand(
+        string EMailOrUserName, 
+        string Password) : ICommand<LoginCommandResponse>;
 }
