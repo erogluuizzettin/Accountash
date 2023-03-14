@@ -1,9 +1,8 @@
 ﻿using Accountash.Domain.AppEntities.Identity;
 
-namespace Accountash.Application.Abstractions
+namespace Accountash.Application.Abstractions;
+
+public interface IJwtProvider
 {
-    public interface IJwtProvider
-    {
-        Task<string> CreateTokenAsync(AppUser user, List<string> roles);
-    }
+    Task<string> CreateTokenAsync(AppUser user, List<string> roles);
 }

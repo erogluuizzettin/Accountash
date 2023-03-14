@@ -1,21 +1,20 @@
 ﻿using Accountash.Application.Messaging;
 using Accountash.Application.Services.AppServices;
 
-namespace Accountash.Application.Features.AppFeatures.CompanyFeatures.Commands.MigrateCompanyDatabase
+namespace Accountash.Application.Features.AppFeatures.CompanyFeatures.Commands.MigrateCompanyDatabase;
+
+public sealed class MigrateCompanyDatabasesCommandHandler : ICommandHandler<MigrateCompanyDatabasesCommand, MigrateCompanyDatabasesCommandResponse>
 {
-    public sealed class MigrateCompanyDatabasesCommandHandler : ICommandHandler<MigrateCompanyDatabasesCommand, MigrateCompanyDatabasesCommandResponse>
+    private readonly ICompanyService _companyService;
+
+    public MigrateCompanyDatabasesCommandHandler(ICompanyService companyService)
     {
-        private readonly ICompanyService _companyService;
+        _companyService = companyService;
+    }
 
-        public MigrateCompanyDatabasesCommandHandler(ICompanyService companyService)
-        {
-            _companyService = companyService;
-        }
-
-        public async Task<MigrateCompanyDatabasesCommandResponse> Handle(MigrateCompanyDatabasesCommand request, CancellationToken cancellationToken)
-        {
-            await _companyService.MigrateCompanyDatabases();
-            return new();
-        }
+    public async Task<MigrateCompanyDatabasesCommandResponse> Handle(MigrateCompanyDatabasesCommand request, CancellationToken cancellationToken)
+    {
+        await _companyService.MigrateCompanyDatabases();
+        return new();
     }
 }

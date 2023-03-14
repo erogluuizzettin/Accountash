@@ -5,21 +5,15 @@ using Accountash.Domain.AppEntities;
 using Accountash.Domain.AppEntities.Identity;
 using Accountash.Domain.CompanyEntities;
 using AutoMapper;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Accountash.Persistance.Mapping
+namespace Accountash.Persistance.Mapping;
+
+public class MappingProfile : Profile
 {
-    public class MappingProfile : Profile
+    public MappingProfile()
     {
-        public MappingProfile()
-        {
-            CreateMap<CreateCompanyCommand, Company>();
-            CreateMap<CreateUniformChartOfAccountCommand, UniformChartOfAccount>();
-            CreateMap<CreateRoleCommand, AppRole>();
-        }
+        CreateMap<CreateCompanyCommand, Company>();
+        CreateMap<CreateUniformChartOfAccountCommand, UniformChartOfAccount>();
+        CreateMap<CreateRoleCommand, AppRole>();
     }
 }

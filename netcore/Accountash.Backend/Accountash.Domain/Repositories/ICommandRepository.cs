@@ -10,11 +10,11 @@ namespace Accountash.Domain.Repositories
     public interface ICommandRepository<TEntity> : IRepository<TEntity>
         where TEntity : BaseEntity, new()
     {
-        Task AddAsync(TEntity entity);
-        Task AddRangeAsync(IEnumerable<TEntity> entities);
+        Task AddAsync(TEntity entity, CancellationToken cancellationToken);
+        Task AddRangeAsync(IEnumerable<TEntity> entities, CancellationToken cancellationToken);
         void Update(TEntity entity);
         void UpdateRange(IEnumerable<TEntity> entities);
-        Task RemoveById(string id);
+        Task RemoveById(string id); // burda compile query kullandık, bunlar cancellationtoken almazlar
         void Remove(TEntity entity);
         void RemoveRange(IEnumerable<TEntity> entities);
     }

@@ -1,10 +1,9 @@
-﻿namespace Accountash.WebApi.Middleware
+﻿namespace Accountash.WebApi.Middleware;
+
+public static class ExceptionMiddlewareExtensions
 {
-    public static class ExceptionMiddlewareExtensions
+    public static IApplicationBuilder UseExceptionMiddleware(this IApplicationBuilder app)
     {
-        public static IApplicationBuilder UseExceptionMiddleware(this IApplicationBuilder app)
-        {
-            return app.UseMiddleware<ExceptionMiddleware>();
-        }
+        return app.UseMiddleware<ExceptionMiddleware>();
     }
 }

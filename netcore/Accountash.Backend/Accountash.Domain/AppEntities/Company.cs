@@ -12,7 +12,7 @@ namespace Accountash.Domain.AppEntities
         public string EMail { get; set; }
         public string ServerName { get; set; }
         public string DatabaseName { get; set; }
-        public string DbUserId { get; set; }
-        public string DbPassword { get; set; }
+        public string ServerUserId { get; set; }
+        public string ServerPassword { get; set; }
     }
 }

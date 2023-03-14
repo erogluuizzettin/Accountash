@@ -6,59 +6,58 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 
-namespace Accountash.Persistance.Context
+namespace Accountash.Persistance.Context;
+
+public sealed class AppDbContext : IdentityDbContext<AppUser, AppRole, string>
 {
-    public sealed class AppDbContext : IdentityDbContext<AppUser, AppRole, string>
+    public AppDbContext(DbContextOptions options) : base(options)
     {
-        public AppDbContext(DbContextOptions options) : base(options)
-        {
-        }
+    }
 
-        public DbSet<Company> Companies { get; set; }
-        public DbSet<UserCompany> UserCompanies { get; set; }
+    public DbSet<Company> Companies { get; set; }
+    public DbSet<UserCompany> UserCompanies { get; set; }
 
-        public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
+    public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
+    {
+        var entries = ChangeTracker.Entries<BaseEntity>();
+        foreach (var entry in entries)
         {
-            var entries = ChangeTracker.Entries<BaseEntity>();
-            foreach (var entry in entries)
+            if (entry.State == EntityState.Added)
             {
-                if (entry.State == EntityState.Added)
-                {
-                    entry.Property(x => x.CreateDate).CurrentValue = DateTime.Now;
-                }
-
-                if (entry.State == EntityState.Modified)
-                {
-                    entry.Property(x => x.UpdateDate).CurrentValue = DateTime.Now;
-                }
+                entry.Property(x => x.CreateDate).CurrentValue = DateTime.Now;
             }
-            return base.SaveChangesAsync(cancellationToken);
-        }
 
-        protected override void OnModelCreating(ModelBuilder builder)
-        {
-            builder.Ignore<IdentityUserLogin<string>>();
-            builder.Ignore<IdentityUserRole<string>>();
-            builder.Ignore<IdentityUserClaim<string>>();
-            builder.Ignore<IdentityUserToken<string>>();
-            builder.Ignore<IdentityRoleClaim<string>>();
-        }
-
-        public class AppDbContextFactory : IDesignTimeDbContextFactory<AppDbContext>
-        {
-            public AppDbContext CreateDbContext(string[] args)
+            if (entry.State == EntityState.Modified)
             {
-                var builder = new DbContextOptionsBuilder<AppDbContext>();
-                builder.UseSqlServer("Data Source=DESKTOP-870I75N\\SQLEXPRESS;" +
-                    "Initial Catalog=AccountashDb;" +
-                    "Integrated Security=True;" +
-                    "Connect Timeout=30;" +
-                    "Encrypt=False;" +
-                    "TrustServerCertificate=False;" +
-                    "ApplicationIntent=ReadWrite;" +
-                    "MultiSubnetFailover=False");
-                return new AppDbContext(builder.Options);
+                entry.Property(x => x.UpdateDate).CurrentValue = DateTime.Now;
             }
+        }
+        return base.SaveChangesAsync(cancellationToken);
+    }
+
+    protected override void OnModelCreating(ModelBuilder builder)
+    {
+        builder.Ignore<IdentityUserLogin<string>>();
+        builder.Ignore<IdentityUserRole<string>>();
+        builder.Ignore<IdentityUserClaim<string>>();
+        builder.Ignore<IdentityUserToken<string>>();
+        builder.Ignore<IdentityRoleClaim<string>>();
+    }
+
+    public class AppDbContextFactory : IDesignTimeDbContextFactory<AppDbContext>
+    {
+        public AppDbContext CreateDbContext(string[] args)
+        {
+            var builder = new DbContextOptionsBuilder<AppDbContext>();
+            builder.UseSqlServer("Data Source=DESKTOP-870I75N\\SQLEXPRESS;" +
+                "Initial Catalog=AccountashDb;" +
+                "Integrated Security=True;" +
+                "Connect Timeout=30;" +
+                "Encrypt=False;" +
+                "TrustServerCertificate=False;" +
+                "ApplicationIntent=ReadWrite;" +
+                "MultiSubnetFailover=False");
+            return new AppDbContext(builder.Options);
         }
     }
 }

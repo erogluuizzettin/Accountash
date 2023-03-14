@@ -1,40 +1,39 @@
 ﻿using FluentValidation;
 
-namespace Accountash.WebApi.Middleware
+namespace Accountash.WebApi.Middleware;
+
+public sealed class ExceptionMiddleware : IMiddleware
 {
-    public sealed class ExceptionMiddleware : IMiddleware
+    public async Task InvokeAsync(HttpContext context, RequestDelegate next)
     {
-        public async Task InvokeAsync(HttpContext context, RequestDelegate next)
+        try
         {
-            try
-            {
-                await next(context);
-            }
-            catch (Exception ex)
-            {
-                await HandleExceptionAsync(context, ex);
-            }
+            await next(context);
         }
-
-        private Task HandleExceptionAsync(HttpContext context, Exception ex)
+        catch (Exception ex)
         {
-            context.Response.ContentType = "application/json";
-            context.Response.StatusCode = StatusCodes.Status500InternalServerError;
+            await HandleExceptionAsync(context, ex);
+        }
+    }
 
-            if (ex.GetType() == typeof(ValidationException))
-            {
-                return context.Response.WriteAsync(new ValidationErrorDetails
-                {
-                    Errors = ((ValidationException)ex).Errors.Select(x => x.PropertyName),
-                    StatusCode = context.Response.StatusCode
-                }.ToString());
-            }
+    private Task HandleExceptionAsync(HttpContext context, Exception ex)
+    {
+        context.Response.ContentType = "application/json";
+        context.Response.StatusCode = StatusCodes.Status500InternalServerError;
 
-            return context.Response.WriteAsync(new ErrorResult
+        if (ex.GetType() == typeof(ValidationException))
+        {
+            return context.Response.WriteAsync(new ValidationErrorDetails
             {
-                Message = ex.Message,
+                Errors = ((ValidationException)ex).Errors.Select(x => x.PropertyName),
                 StatusCode = context.Response.StatusCode
             }.ToString());
         }
+
+        return context.Response.WriteAsync(new ErrorResult
+        {
+            Message = ex.Message,
+            StatusCode = context.Response.StatusCode
+        }.ToString());
     }
 }

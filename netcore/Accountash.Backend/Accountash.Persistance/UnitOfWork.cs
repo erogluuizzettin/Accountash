@@ -2,20 +2,19 @@
 using Accountash.Persistance.Context;
 using Microsoft.EntityFrameworkCore;
 
-namespace Accountash.Persistance
+namespace Accountash.Persistance;
+
+public sealed class UnitOfWork : IUnitOfWork
 {
-    public sealed class UnitOfWork : IUnitOfWork
+    private CompanyDbContext _context;
+
+    public void SetDbContextInstance(DbContext context)
     {
-        private CompanyDbContext _context;
+        _context = (CompanyDbContext)context;
+    }
 
-        public void SetDbContextInstance(DbContext context)
-        {
-            _context = (CompanyDbContext)context;
-        }
-
-        public async Task<int> SaveChangesAsync()
-        {
-            return await _context.SaveChangesAsync();
-        }
+    public async Task<int> SaveChangesAsync(CancellationToken cancellationToken)
+    {
+        return await _context.SaveChangesAsync(cancellationToken);
     }
 }

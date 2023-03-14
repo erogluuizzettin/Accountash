@@ -1,15 +1,8 @@
 ﻿using Accountash.Application.Features.CompanyFeatures.UniformChartOfAccountFeatures.Commands.CreateUniformChartOfAccount;
-using Accountash.Domain.CompanyEntities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Accountash.Application.Services.CompanyServices
+namespace Accountash.Application.Services.CompanyServices;
+
+public interface IUniformChartOfAccountService
 {
-    public interface IUniformChartOfAccountService
-    {
-        Task CreateUniformChartOfAccountAsync(CreateUniformChartOfAccountCommand request);
-    }
+    Task CreateUniformChartOfAccountAsync(CreateUniformChartOfAccountCommand request, CancellationToken cancellationToken);
 }

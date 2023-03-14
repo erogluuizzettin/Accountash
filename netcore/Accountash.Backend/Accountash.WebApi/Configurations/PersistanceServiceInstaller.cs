@@ -3,21 +3,20 @@ using Accountash.Persistance;
 using Accountash.Persistance.Context;
 using Microsoft.EntityFrameworkCore;
 
-namespace Accountash.WebApi.Configurations
+namespace Accountash.WebApi.Configurations;
+
+public class PersistanceServiceInstaller : IServiceInstaller
 {
-    public class PersistanceServiceInstaller : IServiceInstaller
+    private const string SectionName = "SqlServer";
+
+    public void Install(IServiceCollection services, IConfiguration configuration)
     {
-        private const string SectionName = "SqlServer";
-
-        public void Install(IServiceCollection services, IConfiguration configuration)
+        services.AddDbContext<AppDbContext>(options =>
         {
-            services.AddDbContext<AppDbContext>(options =>
-            {
-                options.UseSqlServer(configuration.GetConnectionString(SectionName));
-            });
-            services.AddIdentity<AppUser, AppRole>().AddEntityFrameworkStores<AppDbContext>();
+            options.UseSqlServer(configuration.GetConnectionString(SectionName));
+        });
+        services.AddIdentity<AppUser, AppRole>().AddEntityFrameworkStores<AppDbContext>();
 
-            services.AddAutoMapper(typeof(AssemblyReference).Assembly);
-        }
+        services.AddAutoMapper(typeof(AssemblyReference).Assembly);
     }
 }

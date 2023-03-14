@@ -3,17 +3,16 @@ using Accountash.Application.Behavior;
 using FluentValidation;
 using MediatR;
 
-namespace Accountash.WebApi.Configurations
+namespace Accountash.WebApi.Configurations;
+
+public class ApplicationServiceInstaller : IServiceInstaller
 {
-    public class ApplicationServiceInstaller : IServiceInstaller
+    public void Install(IServiceCollection services, IConfiguration configuration)
     {
-        public void Install(IServiceCollection services, IConfiguration configuration)
-        {
-            services.AddMediatR(typeof(AssemblyReference).Assembly);
+        services.AddMediatR(x => x.RegisterServicesFromAssemblies(typeof(AssemblyReference).Assembly));
 
-            services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBahevior<,>));
+        services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBahevior<,>));
 
-            services.AddValidatorsFromAssembly(typeof(AssemblyReference).Assembly);
-        }
+        services.AddValidatorsFromAssembly(typeof(AssemblyReference).Assembly);
     }
 }

@@ -1,22 +1,16 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Accountash.Presentation.BaseController
+namespace Accountash.Presentation.BaseController;
+
+[ApiController]
+[Route("api/[controller]")]
+public abstract class ApiController: ControllerBase
 {
-    [ApiController]
-    [Route("api/[controller]")]
-    public abstract class ApiController: ControllerBase
-    {
-        protected readonly IMediator _mediator;
+    protected readonly IMediator _mediator;
 
-        protected ApiController(IMediator mediator)
-        {
-            _mediator = mediator;
-        }
+    protected ApiController(IMediator mediator)
+    {
+        _mediator = mediator;
     }
 }
